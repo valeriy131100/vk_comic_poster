@@ -8,3 +8,4 @@ if __name__ == '__main__':
     python_comic_url = url_template.format(python_comic_id)
     python_comic = requests.get(python_comic_url).json()
     download_image(python_comic['img'], 'Python.png')
+    print(python_comic['alt'])
