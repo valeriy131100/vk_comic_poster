@@ -1,8 +1,12 @@
 import requests
+from environs import Env
 from file_workers import download_image
 
 
 if __name__ == '__main__':
+    env = Env()
+    client_id = env.int('CLIENT_ID')
+
     url_template = 'https://xkcd.com/{}/info.0.json'
     python_comic_id = 353
     python_comic_url = url_template.format(python_comic_id)
