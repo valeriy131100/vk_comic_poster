@@ -29,5 +29,6 @@ if __name__ == '__main__':
         access_token,
         api_version=api_version,
         group_id=group_id,
+        message=comic_message,
         attachments=comic_attachment
     )
