@@ -10,7 +10,7 @@ if __name__ == '__main__':
     env.read_env()
     group_id = env.int('GROUP_ID')
     access_token = env('ACCESS_TOKEN')
-    api_version = env('API_VERSION')
+    api_version = '5.131'
 
     comic = xkcd.get_random_comic()
     comic_filename = xkcd.download_comic(comic)
