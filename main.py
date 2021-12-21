@@ -1,7 +1,8 @@
-from environs import Env
-
+import os
 import vkapi
 import xkcd
+
+from environs import Env
 
 
 if __name__ == '__main__':
@@ -22,6 +23,8 @@ if __name__ == '__main__':
         group_id=group_id,
         filename=comic_filename
     )
+
+    os.remove(comic_filename)
 
     vkapi.wall_post(
         access_token,
