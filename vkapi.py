@@ -26,6 +26,6 @@ def upload_photo_to_vk(access_token, api_version, upload_server_url, filename, g
             'file1': image
         }
 
-        response = requests.post(upload_server_url, params=params, files=files)
-        uploaded_photo = json.loads(response.json()['photo'])[0]
+        uploaded_photo = requests.post(upload_server_url, params=params, files=files).json()
+        uploaded_photo['photo'] = json.loads(uploaded_photo['photo'])
         return uploaded_photo
