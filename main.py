@@ -11,10 +11,11 @@ if __name__ == '__main__':
     client_id = env.int('CLIENT_ID')
     group_id = env.int('GROUP_ID')
     access_token = env('ACCESS_TOKEN')
+    api_version = env('API_VERSION')
 
     upload_server = vkapi.get_wall_upload_server(
         access_token,
-        api_version='5.131',
+        api_version=api_version,
         group_id=group_id
     )
 
@@ -29,7 +30,7 @@ if __name__ == '__main__':
 
     uploaded_photo = vkapi.upload_photo_to_vk(
         access_token,
-        api_version='5.131',
+        api_version=api_version,
         upload_server_url=upload_server['upload_url'],
         group_id=group_id,
         filename='Python.png'
@@ -39,7 +40,7 @@ if __name__ == '__main__':
 
     saved_photo = vkapi.save_wall_photo(
         access_token,
-        api_version='5.131',
+        api_version=api_version,
         group_id=group_id,
         server=uploaded_photo['server'],
         photo=uploaded_photo['photo'],
