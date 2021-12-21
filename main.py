@@ -8,7 +8,6 @@ from environs import Env
 if __name__ == '__main__':
     env = Env()
     env.read_env()
-    client_id = env.int('CLIENT_ID')
     group_id = env.int('GROUP_ID')
     access_token = env('ACCESS_TOKEN')
     api_version = env('API_VERSION')
