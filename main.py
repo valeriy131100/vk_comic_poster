@@ -26,3 +26,13 @@ if __name__ == '__main__':
     python_comic = requests.get(python_comic_url).json()
     download_image(python_comic['img'], 'Python.png')
     print(python_comic['alt'])
+
+    uploaded_photo = vkapi.upload_photo_to_vk(
+        access_token,
+        api_version='5.131',
+        upload_server_url=upload_server['upload_url'],
+        group_id=group_id,
+        filename='Python.png'
+    )
+
+    print(uploaded_photo)
