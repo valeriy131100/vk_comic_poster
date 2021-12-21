@@ -36,3 +36,14 @@ if __name__ == '__main__':
     )
 
     print(uploaded_photo)
+
+    saved_photo = vkapi.save_wall_photo(
+        access_token,
+        api_version='5.131',
+        group_id=group_id,
+        server=uploaded_photo['server'],
+        photo=uploaded_photo['photo'],
+        hash_=uploaded_photo['hash']
+    )
+
+    print(saved_photo)
