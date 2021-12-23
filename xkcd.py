@@ -1,6 +1,5 @@
 import requests
 import random
-from file_workers import download_image
 
 
 def get_comics_count():
