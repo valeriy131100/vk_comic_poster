@@ -44,7 +44,7 @@ def save_wall_photo(access_token, api_version, group_id, photo, server, hash_):
     return saved_photo.json()['response'][0]
 
 
-def wall_post(access_token, api_version, group_id, from_group=True, message=None, attachments=None):
+def post_on_wall(access_token, api_version, group_id, from_group=True, message=None, attachments=None):
     url = 'https://api.vk.com/method/wall.post'
     params = {
         'access_token': access_token,

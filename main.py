@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
     os.remove(comic_filename)
 
-    vkapi.wall_post(
+    vkapi.post_on_wall(
         vk_access_token,
         api_version=vk_api_version,
         group_id=vk_group_id,
