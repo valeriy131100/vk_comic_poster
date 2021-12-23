@@ -1,6 +1,25 @@
 import requests
 
 
+class VkApiError(Exception):
+    def __init__(self, error):
+        self.error = error
+
+    def __str__(self):
+        code = self.error.get('error_code')
+        description = self.error.get('error_msg')
+        return f'VkApiError code {code}: {description}'
+
+
+def handle_vk_api_response(response: requests.Response):
+    response.raise_for_status()
+    api_answer = response.json()
+    error = api_answer.get('error')
+    if error:
+        raise VkApiError(error)
+    return api_answer
+
+
 def get_wall_uploading_server(access_token, api_version, group_id):
     url = 'https://api.vk.com/method/photos.getWallUploadServer'
     params = {
@@ -9,8 +28,9 @@ def get_wall_uploading_server(access_token, api_version, group_id):
         'group_id': group_id
     }
 
-    uploading_server = requests.get(url, params=params)
-    return uploading_server.json()['response']
+    response = requests.get(url, params=params)
+    uploading_server = handle_vk_api_response(response)
+    return uploading_server['response']
 
 
 def upload_photo_to_vk(access_token, api_version, uploading_server_url,
@@ -26,12 +46,13 @@ def upload_photo_to_vk(access_token, api_version, uploading_server_url,
             'file1': image
         }
 
-        uploaded_photo = requests.post(
+        response = requests.post(
             uploading_server_url,
             params=params,
             files=files
         )
-        return uploaded_photo.json()
+        uploaded_photo = handle_vk_api_response(response)
+        return uploaded_photo
 
 
 def save_wall_photo(access_token, api_version, group_id, photo, server, hash_):
@@ -45,8 +66,9 @@ def save_wall_photo(access_token, api_version, group_id, photo, server, hash_):
         'group_id': group_id
     }
 
-    saved_photo = requests.post(url, params=params)
-    return saved_photo.json()['response'][0]
+    response = requests.post(url, params=params)
+    saved_photo = handle_vk_api_response(response)
+    return saved_photo['response'][0]
 
 
 def post_on_wall(access_token, api_version, group_id,
@@ -60,8 +82,9 @@ def post_on_wall(access_token, api_version, group_id,
         'attachments': attachments,
         'from_group': from_group
     }
-    post = requests.post(url, params=params).json()['response']
-    return post
+    response = requests.post(url, params=params)
+    post = handle_vk_api_response(response)
+    return post['response']
 
 
 def upload_photo_to_group_wall(access_token, api_version, filename, group_id):
