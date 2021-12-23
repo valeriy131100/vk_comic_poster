@@ -13,23 +13,24 @@ if __name__ == '__main__':
     vk_api_version = '5.131'
 
     comic = xkcd.get_random_comic()
+    comic_message = comic['alt']
     comic_filename = f'{comic["safe_title"]}.png'
     download_image(comic['img'], comic_filename)
-    comic_message = comic['alt']
 
-    comic_attachment = vkapi.upload_photo_to_group_wall(
-        vk_access_token,
-        api_version=vk_api_version,
-        group_id=vk_group_id,
-        filename=comic_filename
-    )
+    try:
+        comic_attachment = vkapi.upload_photo_to_group_wall(
+            vk_access_token,
+            api_version=vk_api_version,
+            group_id=vk_group_id,
+            filename=comic_filename
+        )
 
-    os.remove(comic_filename)
-
-    vkapi.post_on_wall(
-        vk_access_token,
-        api_version=vk_api_version,
-        group_id=vk_group_id,
-        message=comic_message,
-        attachments=comic_attachment
-    )
+        vkapi.post_on_wall(
+            vk_access_token,
+            api_version=vk_api_version,
+            group_id=vk_group_id,
+            message=comic_message,
+            attachments=comic_attachment
+        )
+    finally:
+        os.remove(comic_filename)
