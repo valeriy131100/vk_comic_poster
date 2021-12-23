@@ -1,7 +1,7 @@
 import requests
 
 
-def get_wall_upload_server(access_token, api_version, group_id):
+def get_wall_uploading_server(access_token, api_version, group_id):
     url = 'https://api.vk.com/method/photos.getWallUploadServer'
     params = {
         'access_token': access_token,
@@ -9,11 +9,11 @@ def get_wall_upload_server(access_token, api_version, group_id):
         'group_id': group_id
     }
 
-    upload_server = requests.get(url, params=params)
-    return upload_server.json()['response']
+    uploading_server = requests.get(url, params=params)
+    return uploading_server.json()['response']
 
 
-def upload_photo_to_vk(access_token, api_version, upload_server_url, filename, group_id):
+def upload_photo_to_vk(access_token, api_version, uploading_server_url, filename, group_id):
     params = {
         'access_token': access_token,
         'v': api_version,
@@ -25,7 +25,7 @@ def upload_photo_to_vk(access_token, api_version, upload_server_url, filename, g
             'file1': image
         }
 
-        uploaded_photo = requests.post(upload_server_url, params=params, files=files).json()
+        uploaded_photo = requests.post(uploading_server_url, params=params, files=files).json()
         return uploaded_photo
 
 
@@ -59,7 +59,7 @@ def post_on_wall(access_token, api_version, group_id, from_group=True, message=N
 
 
 def upload_photo_to_group_wall(access_token, api_version, filename, group_id):
-    upload_server = get_wall_upload_server(
+    uploading_server = get_wall_uploading_server(
         access_token,
         api_version=api_version,
         group_id=group_id
@@ -68,7 +68,7 @@ def upload_photo_to_group_wall(access_token, api_version, filename, group_id):
     uploaded_photo = upload_photo_to_vk(
         access_token,
         api_version=api_version,
-        upload_server_url=upload_server['upload_url'],
+        uploading_server_url=uploading_server['upload_url'],
         group_id=group_id,
         filename=filename
     )
