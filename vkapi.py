@@ -13,7 +13,8 @@ def get_wall_uploading_server(access_token, api_version, group_id):
     return uploading_server.json()['response']
 
 
-def upload_photo_to_vk(access_token, api_version, uploading_server_url, filename, group_id):
+def upload_photo_to_vk(access_token, api_version, uploading_server_url,
+                       filename, group_id):
     params = {
         'access_token': access_token,
         'v': api_version,
@@ -25,8 +26,12 @@ def upload_photo_to_vk(access_token, api_version, uploading_server_url, filename
             'file1': image
         }
 
-        uploaded_photo = requests.post(uploading_server_url, params=params, files=files).json()
-        return uploaded_photo
+        uploaded_photo = requests.post(
+            uploading_server_url,
+            params=params,
+            files=files
+        )
+        return uploaded_photo.json()
 
 
 def save_wall_photo(access_token, api_version, group_id, photo, server, hash_):
@@ -44,7 +49,8 @@ def save_wall_photo(access_token, api_version, group_id, photo, server, hash_):
     return saved_photo.json()['response'][0]
 
 
-def post_on_wall(access_token, api_version, group_id, from_group=True, message=None, attachments=None):
+def post_on_wall(access_token, api_version, group_id,
+                 from_group=True, message=None, attachments=None):
     url = 'https://api.vk.com/method/wall.post'
     params = {
         'access_token': access_token,
@@ -85,4 +91,3 @@ def upload_photo_to_group_wall(access_token, api_version, filename, group_id):
     owner_id = saved_photo['owner_id']
     media_id = saved_photo['id']
     return f'photo{owner_id}_{media_id}'
-
