@@ -1,8 +1,8 @@
 import os
 import vkapi
 import xkcd
-
 from environs import Env
+from file_workers import download_image
 
 
 if __name__ == '__main__':
@@ -13,7 +13,8 @@ if __name__ == '__main__':
     vk_api_version = '5.131'
 
     comic = xkcd.get_random_comic()
-    comic_filename = xkcd.download_comic(comic)
+    comic_filename = f'{comic["safe_title"]}.png'
+    download_image(comic['img'], comic_filename)
     comic_message = comic['alt']
 
     comic_attachment = vkapi.upload_photo_to_group_wall(

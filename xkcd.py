@@ -16,9 +16,3 @@ def get_random_comic():
     comic_url = url_template.format(comic_id)
     comic = requests.get(comic_url).json()
     return comic
-
-
-def download_comic(comic):
-    comic_filename = f'{comic["safe_title"]}.png'
-    download_image(comic['img'], comic_filename)
-    return comic_filename

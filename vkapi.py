@@ -44,12 +44,6 @@ def save_wall_photo(access_token, api_version, group_id, photo, server, hash_):
     return saved_photo.json()['response'][0]
 
 
-def make_attachment_string_from_saved_photo(saved_photo):
-    owner_id = saved_photo['owner_id']
-    media_id = saved_photo['id']
-    return f'photo{owner_id}_{media_id}'
-
-
 def wall_post(access_token, api_version, group_id, from_group=True, message=None, attachments=None):
     url = 'https://api.vk.com/method/wall.post'
     params = {
@@ -88,5 +82,7 @@ def upload_photo_to_group_wall(access_token, api_version, filename, group_id):
         hash_=uploaded_photo['hash']
     )
 
-    return make_attachment_string_from_saved_photo(saved_photo)
+    owner_id = saved_photo['owner_id']
+    media_id = saved_photo['id']
+    return f'photo{owner_id}_{media_id}'
 
