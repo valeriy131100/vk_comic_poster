@@ -1,5 +1,4 @@
 import os
-import traceback
 import vkapi
 import xkcd
 from environs import Env
@@ -33,7 +32,5 @@ if __name__ == '__main__':
             message=comic_message,
             attachments=comic_attachment
         )
-    except Exception:
-        traceback.print_exc()
     finally:
         os.remove(comic_filename)
