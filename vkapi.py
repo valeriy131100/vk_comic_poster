@@ -51,8 +51,9 @@ def upload_photo_to_vk(access_token, api_version, uploading_server_url,
             params=params,
             files=files
         )
-        uploaded_photo = handle_vk_api_response(response)
-        return uploaded_photo
+
+    uploaded_photo = handle_vk_api_response(response)
+    return uploaded_photo
 
 
 def save_wall_photo(access_token, api_version, group_id, photo, server, hash_):
